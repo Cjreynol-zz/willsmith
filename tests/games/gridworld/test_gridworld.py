@@ -10,7 +10,7 @@ class TestGridworld(MDPTestCase):
     
     def setUp(self):
         super().setUp()
-        self.mdp = Gridworld(Grid(simple_terminals, 0, simple_walls, (4,3)), 
+        self.mdp = Gridworld(Grid(simple_terminals, simple_walls, (4,3)), 0,
                                 deterministic_transition, (0, 0), None)
         self.test_action = GridworldDirection.UP
 

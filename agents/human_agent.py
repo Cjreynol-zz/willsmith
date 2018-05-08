@@ -1,8 +1,8 @@
 from agents.displays.human_display import HumanDisplay
-from willsmith.agent import Agent
+from willsmith.game_agent import GameAgent
 
 
-class HumanAgent(Agent):
+class HumanAgent(GameAgent):
     """
     Agent that relies on user input to make action choices.
 

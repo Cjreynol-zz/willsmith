@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class Agent(ABC):
+class GameAgent(ABC):
     """
     Abstract base class for game playing agents.
     

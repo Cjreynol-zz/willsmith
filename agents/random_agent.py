@@ -1,7 +1,7 @@
-from willsmith.agent import Agent
+from willsmith.game_agent import GameAgent
 
 
-class RandomAgent(Agent):
+class RandomAgent(GameAgent):
     """
     Agent that chooses random actions regardless of the game state.
     """

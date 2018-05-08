@@ -4,10 +4,10 @@ from time import time
 
 from agents.displays.mcts_display import MCTSDisplay
 
-from willsmith.agent import Agent
+from willsmith.game_agent import GameAgent
 
 
-class MCTSAgent(Agent):
+class MCTSAgent(GameAgent):
     """
     Planning agent that makes decisions based on Monte Carlo Tree Search.
 
@@ -31,7 +31,7 @@ class MCTSAgent(Agent):
 
     def __init__(self, agent_id, use_gui):
         """
-        Run the Agent initializer and start the gametree.
+        Run the GameAgent initializer and start the gametree.
 
         Also initialize debug attributes for use in logging.
         """

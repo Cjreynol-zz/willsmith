@@ -8,11 +8,11 @@ class Grid(MutableMapping):
     """
     """
 
-    def __init__(self, terminal_states, living_reward, walls, size):
+    def __init__(self, terminal_states, walls, size):
         self.size = size
         self._grid = {(x, y) : self.GridworldSquare((x, y), 
                                     (x, y) in terminal_states,
-                                    terminal_states.get((x, y), living_reward))
+                                    terminal_states.get((x, y), 0))
                 for x in range(self.size[0]) for y in range(self.size[1])
                     if (x, y) not in walls}
 

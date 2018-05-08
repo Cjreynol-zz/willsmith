@@ -14,12 +14,14 @@ class Gridworld(MDP):
 
     DISPLAY = GridworldDisplay
 
-    def __init__(self, grid, transition_func, agent_start_pos, use_display):
+    def __init__(self, grid, living_reward, transition_func, agent_start_pos, 
+                    use_display):
         """
         """
         super().__init__(use_display)
 
         self.grid = grid
+        self.living_reward = living_reward
         self.transition_func = transition_func
         self.action_space = list(GridworldDirection)
         self.start_pos = agent_start_pos
@@ -40,7 +42,7 @@ class Gridworld(MDP):
         self.player_pos = pos
         self.terminal = terminal
 
-        return reward, terminal
+        return reward + self.living_reward, terminal
 
     def _undo(self, action):
         if self.terminal:
@@ -94,6 +96,7 @@ class Gridworld(MDP):
         if isinstance(self, other.__class__):
             equal = (super().__eq__(other)
                         and self.grid == other.grid
+                        and self.living_reward == other.living_reward
                         and self.transition_func == other.transition_func
                         and self.terminal == other.terminal
                         and self.action_space == other.action_space
@@ -103,9 +106,9 @@ class Gridworld(MDP):
         return equal
 
     def __hash__(self):
-        return hash((self.grid, self.transition_func, self.action_space, 
-                        self.terminal, self.start_pos, self.player_pos, 
-                        self.previous_positions))
+        return hash((self.grid, self.living_reward, self.transition_func, 
+                        self.action_space, self.terminal, self.start_pos, 
+                        self.player_pos, self.previous_positions))
 
     def __deepcopy__(self, memo):
         new = Gridworld.__new__(Gridworld)
@@ -113,6 +116,7 @@ class Gridworld(MDP):
         self.deepcopy_mdp_attrs(new)
 
         new.grid = deepcopy(self.grid, memo)
+        new.living_reward = self.living_reward
         new.transition_func = self.transition_func
         new.action_space = copy(self.action_space)
         new.terminal = self.terminal

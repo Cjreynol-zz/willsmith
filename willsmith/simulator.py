@@ -5,9 +5,6 @@ class Simulator:
     """
     """
 
-    def __init__(self):
-        pass
-
     @staticmethod
     def run_games(game, agents, time_allowed, num_games):
         """

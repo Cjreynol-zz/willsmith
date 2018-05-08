@@ -200,7 +200,7 @@ def process_mdp_args(args, use_gui):
                                                         args.discount,
                                                         args.exploration_rate)
 
-    getLogger().debug("Agents will start with:\nlearning rate - {}\ndiscount - {}\nexploration_rate - {}".format(args.learning_rate, args.discount, args.exploration_rate))
+    getLogger().debug("Agents will start with:  learning rate = {}; discount = {}; exploration_rate = {}".format(args.learning_rate, args.discount, args.exploration_rate))
     getLogger().debug("{} trial(s) will be run".format(args.num_trials))
     return [mdp, agent, args.num_trials]
 

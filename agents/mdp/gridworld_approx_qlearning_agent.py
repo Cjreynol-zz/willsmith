@@ -1,4 +1,4 @@
-from agents.approx_qlearning_agent import ApproxQLearningAgent
+from agents.mdp.approx_qlearning_agent import ApproxQLearningAgent
 
 
 class GridworldApproxQLearningAgent(ApproxQLearningAgent):

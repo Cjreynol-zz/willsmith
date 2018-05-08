@@ -1,7 +1,7 @@
 from collections.abc import MutableMapping
 from copy import deepcopy
 
-from games.gridworld.gridworld_direction import GridworldDirection
+from mdps.gridworld.gridworld_direction import GridworldDirection
 
 
 class Grid(MutableMapping):

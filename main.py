@@ -11,14 +11,14 @@ See README.md for a full-project breakdown.
 from argparse import ArgumentParser
 from logging import FileHandler, Formatter, StreamHandler, DEBUG, INFO, getLogger
 
-from agents.human_agent import HumanAgent
-from agents.mcts_agent import MCTSAgent
-from agents.random_agent import RandomAgent
-from agents.gridworld_approx_qlearning_agent import GridworldApproxQLearningAgent
+from agents.game.human_agent import HumanAgent
+from agents.game.mcts_agent import MCTSAgent
+from agents.game.random_agent import RandomAgent
+from agents.mdp.gridworld_approx_qlearning_agent import GridworldApproxQLearningAgent
 
 from games.havannah.havannah import Havannah
 from games.ttt.nested_ttt import NestedTTT
-from games.gridworld.gridworld_examples import make_simple_gridworld
+from mdps.gridworld.gridworld_examples import make_simple_gridworld
 
 from willsmith.simulator import Simulator
 

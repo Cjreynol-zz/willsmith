@@ -1,7 +1,7 @@
 from unittest import TestCase
 from unittest.mock import patch
 
-from agents.mcts_agent import MCTSAgent
+from agents.game.mcts_agent import MCTSAgent
 
 
 class TestMCTSAgent(TestCase):

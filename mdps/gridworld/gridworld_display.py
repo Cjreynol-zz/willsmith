@@ -1,6 +1,6 @@
 from tkinter import Canvas, BOTH
 
-from games.gridworld.gridworld_direction import GridworldDirection
+from mdps.gridworld.gridworld_direction import GridworldDirection
 
 from willsmith.gui_display_controller import GUIDisplayController
 

@@ -1,9 +1,9 @@
-from tests.games.mdp_testcase import MDPTestCase
+from tests.mdps.mdp_testcase import MDPTestCase
 
-from games.gridworld.grid import Grid
-from games.gridworld.gridworld import Gridworld
-from games.gridworld.gridworld_direction import GridworldDirection
-from games.gridworld.gridworld_examples import *
+from mdps.gridworld.grid import Grid
+from mdps.gridworld.gridworld import Gridworld
+from mdps.gridworld.gridworld_direction import GridworldDirection
+from mdps.gridworld.gridworld_examples import *
 
 
 class TestGridworld(MDPTestCase):

@@ -1,8 +1,8 @@
 from copy import copy, deepcopy
 from random import choices
 
-from games.gridworld.gridworld_direction import GridworldDirection
-from games.gridworld.gridworld_display import GridworldDisplay
+from mdps.gridworld.gridworld_direction import GridworldDirection
+from mdps.gridworld.gridworld_display import GridworldDisplay
 
 from willsmith.mdp import MDP
 

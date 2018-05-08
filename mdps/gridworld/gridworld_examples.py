@@ -1,6 +1,6 @@
-from games.gridworld.grid import Grid
-from games.gridworld.gridworld import Gridworld
-from games.gridworld.gridworld_direction import GridworldDirection
+from mdps.gridworld.grid import Grid
+from mdps.gridworld.gridworld import Gridworld
+from mdps.gridworld.gridworld_direction import GridworldDirection
 
 
 #####################################

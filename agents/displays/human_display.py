@@ -5,8 +5,6 @@ from willsmith.gui_display_controller import GUIDisplayController
 
 class HumanDisplay(GUIDisplayController):
     """
-    The display controller for HumanAgent.
-
     Creates a Tkinter GUI that allows the user to input their moves.
     """
 

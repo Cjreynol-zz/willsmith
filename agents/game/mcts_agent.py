@@ -16,8 +16,8 @@ class MCTSAgent(GameAgent):
 
         Selection       -   Starting at root, choose actions until a new leaf 
                             can be created or the end of the tree is reached
-        Expansion       -   Create new leaf node in game tree, unless at 
-                            the end of the tree
+        Expansion       -   Create a new leaf node in game tree, unless the 
+                            tree is already at a terminal state
         Simulation      -   Play out game until reaching a terminal state
         Backpropagation -   Update win/trial counters from the start of the 
                             playout up to the rood
@@ -101,14 +101,16 @@ class MCTSAgent(GameAgent):
         level.
         """
         node = self.root
-        unexplored_actions = len(state.get_legal_actions()) > len(node.children.keys())
+        unexplored_actions = (len(state.get_legal_actions()) 
+                                > len(node.children.keys()))
 
         while not unexplored_actions and node.has_children():
             action = self._tree_policy(node, state)
             node = node.get_child(action)
 
             state.take_action(action)
-            unexplored_actions = len(state.get_legal_actions()) > len(node.children.keys())
+            unexplored_actions = (len(state.get_legal_actions()) 
+                                    > len(node.children.keys()))
 
         return node
 
@@ -130,7 +132,9 @@ class MCTSAgent(GameAgent):
         for action in valid_actions:
             child_node = node.get_child(action)
             value_estimate = child_node.value_estimate()
-            exploration_estimate = self.EXPLORATION_PARAM * sqrt(log(node.trials) / child_node.trials)
+            exploration_estimate = (self.EXPLORATION_PARAM 
+                                        * sqrt(log(node.trials) 
+                                            / child_node.trials))
             results[action] = value_estimate + exploration_estimate
         return max(results.keys(), key=results.get)
 
@@ -145,7 +149,8 @@ class MCTSAgent(GameAgent):
         In the case where there are no more legal actions left, this method 
         simply returns the given node.
         """
-        possible_actions = [action for action in state.get_legal_actions() if action not in node.children]
+        possible_actions = [action for action in state.get_legal_actions() 
+                                if action not in node.children]
 
         if possible_actions:
             action = choice(possible_actions)
@@ -236,7 +241,8 @@ class MCTSAgent(GameAgent):
         def depth(self):
             depth = 0
             if self.has_children():
-                depth = 1 + max([child.depth() for child in self.children.values()])
+                depth = 1 + max([child.depth() 
+                                    for child in self.children.values()])
             return depth
 
         def __str__(self):

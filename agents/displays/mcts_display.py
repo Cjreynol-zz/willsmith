@@ -5,10 +5,7 @@ from willsmith.gui_display_controller import GUIDisplayController
 
 class MCTSDisplay(GUIDisplayController):
     """
-    The display controller for MCTSAgent.
-
-    Creates a Tkinter GUI that displays some stats about the agent's latest 
-    moves.
+    Creates a Tkinter GUI that displays stats about the agent's latest moves.
     """
 
     WINDOW_TITLE = "MCTS Agent"

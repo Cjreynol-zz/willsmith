@@ -20,7 +20,7 @@ from games.havannah.havannah import Havannah
 from games.ttt.nested_ttt import NestedTTT
 from mdps.gridworld.gridworld_examples import make_simple_gridworld
 
-from willsmith.simulator import Simulator
+from willsmith.simulator import run_games, run_mdp
 
 
 __version__ = "0.6.0"
@@ -227,9 +227,9 @@ def main():
 
     sim_args = process_args(args)
     if args.sim_type == "game":
-        Simulator.run_games(*sim_args)
+        run_games(*sim_args)
     elif args.sim_type == "mdp":
-        Simulator.run_mdp(*sim_args)
+        run_mdp(*sim_args)
 
 if __name__ == "__main__":
     main()

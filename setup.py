@@ -9,14 +9,14 @@ with open("README.md") as f:
 setup(  
     name = "willsmith",
     version = __version__,
-    description = "A framework for testing and comparing AI agents.",
+    description = "A framework for creating, testing, and comparing AI agents.",
     long_description = long_description,
     long_description_content_type='text/markdown',
     author = "John Bourassa, Chad Reynolds",
     author_email = "cjreynol13@aol.com",
-    url = "https://github.com/Cjreynol/Monte-Carlo-Tree-Search",
+    url = "https://github.com/Cjreynol/willsmith",
     project_urls = {
-        "Source" : "https://github.com/Cjreynol/Monte-Carlo-Tree-Search"
+        "Source" : "https://github.com/Cjreynol/willsmith"
         },
     license = "MIT",
     classifiers = [
@@ -28,7 +28,7 @@ setup(
         "Programming Language :: Python :: 3.6"
         "Programming Language :: Python :: 3 :: Only"
         ],
-    keywords = "AI artificial intelligence agents",
+    keywords = "AI artificial intelligence agent game mdp",
     python_requires = ">=3",
     py_modules = ["main"],
     packages = find_packages(),

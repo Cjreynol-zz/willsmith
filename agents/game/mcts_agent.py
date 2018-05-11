@@ -9,7 +9,7 @@ from willsmith.game_agent import GameAgent
 
 class MCTSAgent(GameAgent):
     """
-    Agent that learns action values based on Monte Carlo Tree Search.
+    An agent that learns action values based on Monte Carlo Tree Search.
 
     Computes as many runs as possible in the time allotted, where a run
     consists of the following stages:

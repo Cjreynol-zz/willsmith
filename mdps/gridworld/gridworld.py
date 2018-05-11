@@ -9,9 +9,9 @@ from willsmith.mdp import MDP
 
 class Gridworld(MDP):
     """
-    A wrapper for the standard example of a Markov Decision Process, where 
-    an agent moves around in different squares, gathering living rewards 
-    until a terminal state is reached.
+    The standard example of a Markov Decision Process, where an agent moves 
+    around in different squares, gathering living rewards until a terminal 
+    state is reached.
 
     This Gridworld class does not contain a default configuration, but is a 
     container for any Gridworld.  It accepts arguments that contain different 

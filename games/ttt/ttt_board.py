@@ -8,18 +8,10 @@ class TTTBoard:
     """
     The gameboard for Tic-Tac-Toe.
 
-    Holds the state for the board and keeps track of the winner if the board 
-    has been won.
+    Holds the state for the board and keeps track of the winner of the board.
 
-    Contains class attribute winning_positions, which is a generated set of 
-    all possible winning board configurations.  This solved a problem where 
-    the calculation after every move to determine if the board was won slowed 
-    down simulation of games to a crawl.  
-
-    Now, the program pauses momentarily at the start of the game to calculate 
-    this set.  Then, for the rest of the game a win check only requires the 
-    calculation of the hash of the board state, drastically reducing the time 
-    spent on these checks.
+    The class attribute winning_positions is used for constant-time checking 
+    if a board is in a winning state.
     """
 
     BOARD_SIZE = 3
@@ -88,7 +80,7 @@ class TTTBoard:
     def generate_winning_positions():
         """
         Calculate every possible winning configuration of the board and 
-        return the set of them.
+        return the set.
         """
         bs = TTTBoard.BOARD_SIZE
         winning_positions = set()

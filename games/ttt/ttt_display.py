@@ -78,9 +78,6 @@ class TTTDisplay(GUIDisplayController):
                         for _ in range(self.BOARD_DIM)]
 
     def _place_widgets(self):
-        """
-        Place the outer board and each of the inner boards.
-        """
         self._place_board(self.outer_board)
         for row in self.inner_boards:
             for board in row:

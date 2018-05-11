@@ -5,15 +5,15 @@ from willsmith.mdp_agent import MDPAgent
 
 class ApproxQLearningAgent(MDPAgent):
     """
-    A template for an agent that uses appoximate Q-learning to learn a policy.
+    An agent that relies on appoximate Q-learning to learn a policy.
 
-    This agent expects to be given domain-specific knowledge about the MDP it 
-    is supposed to learn in the form of a list of feature functions.
-
-    This class weights the set of feature functions, updating their values 
-    after each action taken.  The amount to update is calculated as the 
-    difference between the expected reward from the previous action and the 
-    actual reward received.
+    This agent utilizes given feature functions to determine values for the 
+    states of the MDP.  These functions are weighted, and the weights are 
+    updated after each action.  
+    
+    Given the proper parameters and enough trials of the MDP, this agent's 
+    weights will converge on a set of values that cause the agent to act in 
+    accordance with the MDP's optimal policy.
     """
 
     def __init__(self, action_space, learning_rate, discount, 

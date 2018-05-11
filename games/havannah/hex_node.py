@@ -6,11 +6,12 @@ class HexNode:
     Represents a hex node in the Havannah game board.
 
     Keeps track of information needed for the gamestate, its graph edges, 
-    union-find set info, and progress towards a win condition.
+    union-find set info, and progress of towards a win condition.
 
-    * Non-root nodes are not kept up-to-date with the win progress, they are 
-    * guaranteed to be out of date once they are unioned with any other 
-    * subset that has progress towards a win.
+    * Non-root nodes are not kept up-to-date with the win progress.  
+    *
+    * They are guaranteed to be out of date once they are unioned with any 
+    * other subset that has progress towards a win.
     *
     * Only reference root nodes when checking win progress.
     """

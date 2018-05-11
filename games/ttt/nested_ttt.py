@@ -37,15 +37,7 @@ class NestedTTT(Game):
 
     def _reset(self):
         """
-        Initialize the state for the game and checking for legal moves.
-
-        Both the outer board and the 9 inner boards are initialized with empty 
-        squares.  See TTTBoard for the documentation on boards.
-        
-        The set of legal board positions, one pair of 
-        position for each, is also initialized.  This enables faster checking 
-        if a move is legal, and also faster generation of the available legal 
-        actions in get_legal_actions.
+        Initialize the state for the game and legal moves.
         """
         self.outer_board = TTTBoard()
         self.inner_boards = [[TTTBoard() for _ in range(TTTBoard.BOARD_SIZE)] 
@@ -54,6 +46,10 @@ class NestedTTT(Game):
         self.legal_actions = self._generate_initial_legal_actions()
 
     def _generate_initial_legal_actions(self):
+        """
+        Generate a dictionary of actions for each position on each inner 
+        board.
+        """
         cur_move = self._agent_id_to_move(self.current_agent_id)
         return {((r, c), (ir, ic)) : self.ACTION((r, c), (ir, ic), cur_move) 
                     for r in range(TTTBoard.BOARD_SIZE)

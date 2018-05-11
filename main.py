@@ -1,6 +1,5 @@
 """
-The main executable that instantiates the simulator with the proper game and 
-agents, as specified by the command-line arguments.
+The main script that parses command-line arguments then runs the simulation.
 
 Run python main.py -h for the explanation of command-line arguments.
 
@@ -34,7 +33,7 @@ DEFAULT_NUM_GAMES = 1
 
 GRIDWORLD_LABELS = ["Gridworld", "grid"]
 MDP_AGENT_LABELS = ["approxql"]
-DEFAULT_TRIALS = 200
+DEFAULT_NUM_TRIALS = 200
 DEFAULT_MDP_AGENT = "approxql"
 
 LOG_FILENAME = "delspooner.log"
@@ -74,6 +73,10 @@ def create_logger(debug):
 
 def create_parser():
     """
+    Creates three parsers:
+    - The main parser that determines render and logging settings
+    - The game parser that uses the run_games simulation function
+    - The mdp parser that uses the run_mdp simulation function
     """
     parser = ArgumentParser(description = "Run agents through simulations")
 
@@ -117,7 +120,7 @@ def create_parser():
                             choices = MDP_AGENT_LABELS,
                             help = "Agent types")
     mdp_parser.add_argument("-n", "--num_trials", type = int,
-                            default = DEFAULT_TRIALS,
+                            default = DEFAULT_NUM_TRIALS,
                             help = "The number of trials to simulate")
     mdp_parser.add_argument("-l", "--learning_rate", type = float,
                             help = "The initial learning rate of the agent")
@@ -128,7 +131,7 @@ def create_parser():
 
     return parser
 
-def lookup_agent(num, agent_str):
+def lookup_game_agent(num, agent_str):
     lookup = {"mcts" : MCTSAgent, "rand" : RandomAgent, "human" : HumanAgent}
     try:
         agent_class = lookup[agent_str]
@@ -178,9 +181,10 @@ def determine_display(no_display, console_display):
 
 def process_game_args(args, use_gui):
     """
+    Instantiate the game and agents based on the command-line arguments.
     """
     game = lookup_game(args.game_choice)(use_gui)
-    agent_classes = [lookup_agent(i, agent_str) 
+    agent_classes = [lookup_game_agent(i, agent_str) 
                         for i, agent_str in enumerate(args.agents)]
     agents = [(agent(i, use_gui) 
                             if agent is not HumanAgent 
@@ -193,6 +197,7 @@ def process_game_args(args, use_gui):
 
 def process_mdp_args(args, use_gui):
     """
+    Instantiate the mdp and agent based on the command-line arguments.
     """
     mdp = lookup_mdp(args.mdp_choice)(use_gui)
     agent = lookup_mdp_agent(args.agent_choice, mdp)(mdp.get_action_space(), 
@@ -206,6 +211,8 @@ def process_mdp_args(args, use_gui):
 
 def process_args(args):
     """
+    Determine which subparser was used, and calls the appropriate argument 
+    processing function.
     """
     use_gui = determine_display(args.no_display, args.console_display)
 
@@ -220,6 +227,7 @@ def process_args(args):
 
 def main():
     """
+    Parse and process command-line arguments, then run the simulation.
     """
     parser = create_parser()
     args = parser.parse_args()

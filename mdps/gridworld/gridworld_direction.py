@@ -3,7 +3,7 @@ from enum import Enum
 
 class GridworldDirection(Enum):
     """
-    Represents the possible directions to move in Gridworld.
+    Represents the possible directions an agent can move in Gridworld.
     """
     UP = 1
     RIGHT = 2
@@ -13,7 +13,7 @@ class GridworldDirection(Enum):
     @staticmethod
     def get_offset(action):
         """
-        Convert a direction to a 2D move vector.
+        Convert a direction to a 2D vector.
         """
         offset = (0, 0)
         if action == GridworldDirection.UP:

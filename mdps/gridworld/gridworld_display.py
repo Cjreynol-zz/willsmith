@@ -43,15 +43,15 @@ class GridworldDisplay(GUIDisplayController):
         self.canvas.pack(fill = BOTH, expand = True)
 
     def _update_display(self, state, action):
-        """
-        """
         self._draw_grid(state)
 
     def _reset_display(self, state):
         """
-        Resize the window/canvas, then draw the entire board as is.
+        Resize the window/canvas to match the gridworld size, then draw the 
+        entire board as is.
 
-        Expects the agent to have been put back in its starting position.
+        Also, sets the temrinal_colors attribute based on the terminal states 
+        of the given gridworld.
         """
         width, height = state.grid.size
         self.height = (height * self.SQUARE_WIDTH 
@@ -63,6 +63,9 @@ class GridworldDisplay(GUIDisplayController):
         self._draw_grid(state)
 
     def _draw_grid(self, state):
+        """
+        Draw each of the squares in the gridworld, as well as the player.
+        """
         for pos in state.grid.keys():
             agent_square = False
             if pos == state.player_pos:
@@ -137,9 +140,12 @@ class GridworldDisplay(GUIDisplayController):
         """
         Draw a colored square at the given location.
 
-        If the agent is in that location, draw a smaller box to show it.
+        If the agent is in that square, draw a smaller square to indicate it.
         """
-        square_color = self._determine_square_color(square)
+        square_color = self.SQUARE_EMPTY_COLOR
+        if square.terminal:
+            square_color = self.lookup[square.reward]
+
         self.canvas.create_rectangle(pos[0], pos[1], 
                                     pos[0] + self.SQUARE_WIDTH, 
                                     pos[1] + self.SQUARE_WIDTH,
@@ -154,13 +160,3 @@ class GridworldDisplay(GUIDisplayController):
             a_y2 = pos[1] + self.SQUARE_WIDTH * 3 // 4
             self.canvas.create_rectangle(a_x1, a_y1, a_x2, a_y2,
                                         fill = self.SQUARE_AGENT_COLOR)
-
-    def _determine_square_color(self, square):
-        """
-        Determine which color the square should be based on whether it is 
-        terminal and its reward.
-        """
-        color = self.SQUARE_EMPTY_COLOR
-        if square.terminal:
-            color = self.lookup[square.reward]
-        return color

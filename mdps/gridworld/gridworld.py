@@ -9,15 +9,22 @@ from willsmith.mdp import MDP
 
 class Gridworld(MDP):
     """
-    A wrapper for the standard example of a Markov Decision Process.  
+    A wrapper for the standard example of a Markov Decision Process, where 
+    an agent moves around in different squares, gathering living rewards 
+    until a terminal state is reached.
+
+    This Gridworld class does not contain a default configuration, but is a 
+    container for any Gridworld.  It accepts arguments that contain different 
+    Grid layouts, living reward values, and transition functions to customize 
+    the behavior of the world as the agent takes actions in it.
+
+    See MDP documentation for the public API expected by other classes.
     """
 
     DISPLAY = GridworldDisplay
 
     def __init__(self, grid, living_reward, transition_func, agent_start_pos, 
                     use_display):
-        """
-        """
         super().__init__(use_display)
 
         self.grid = grid
@@ -58,6 +65,7 @@ class Gridworld(MDP):
 
     def _determine_result(self, action):
         """
+        Determine the result of the action taken in the current state.
         """
         x, y = self.player_pos
         dx, dy = GridworldDirection.get_offset(action)

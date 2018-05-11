@@ -6,9 +6,18 @@ from mdps.gridworld.gridworld_direction import GridworldDirection
 
 class Grid(MutableMapping):
     """
+    A dictionary-like object that stores the information for each location 
+    in a Gridworld.
     """
 
     def __init__(self, terminal_states, walls, size):
+        """
+        Create a lookup table from coordinates to squares, with the squares 
+        initialized based on the given arguments.
+
+        Walls are "blank" spaces in the Grid, they do not exist in the lookup 
+        table.
+        """
         self.size = size
         self._grid = {(x, y) : self.GridworldSquare((x, y), 
                                     (x, y) in terminal_states,
@@ -51,7 +60,7 @@ class Grid(MutableMapping):
         
     class GridworldSquare:
         """
-        Holds the information for a single square in a Gridworld Grid.
+        Contains the information for a single square in a Grid.
         """
 
         def __init__(self, location, terminal, reward):

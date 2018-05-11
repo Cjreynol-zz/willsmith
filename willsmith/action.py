@@ -31,21 +31,17 @@ class Action(ABC):
     @abstractmethod
     def __eq__(self, other):
         """
-        Compares two objects.
+        Compare the two object to check if they are equal.
 
         Required to ensure proper behavior comparing actions, such as 
         testing if an action is an element of a list.
-
-        isinstance(self, other.__class__) should be used to ensure equality 
-        tests of different classes return False instead of raising an 
-        AttributeError
         """
         pass
 
     @abstractmethod
     def __hash__(self):
         """
-        Hashes the object.
+        Return the hash of the object.
 
         A custom equality implementation requires a custom hash 
         implementation.

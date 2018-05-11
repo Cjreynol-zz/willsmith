@@ -32,9 +32,7 @@ class GameAgent(ABC):
     @abstractmethod
     def search(self, state, allotted_time):
         """
-        Search the action space for the next action to take.  
-
-        Search strategy depends on the subclass implementation.
+        Search the game tree for the next action to take.  
         """
         pass
 

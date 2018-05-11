@@ -7,11 +7,25 @@ from willsmith.simple_displays import ConsoleDisplay, NoDisplay
 
 class MDP(ABC):
     """
+    Abstract base class for Markov Decision Processes.
+
+    The interface enforced by this class is used by MDPAgent instances to 
+    provide the necessary information for them to learn the MDP, and by the 
+    simulator module to control the MDP as it runs an agent through trials of 
+    the MDP.
+
+    The DISPLAY class attribute is used by subclasses to register custom 
+    displays.
     """
 
     DISPLAY = None
 
     def __init__(self, use_display):
+        """
+        Initialize the bookkeeping attributes for use during a trial.
+
+        Properly sets the display attribute based on the use_display argument.
+        """
         self.timesteps = 0
         self.total_reward = 0
         self.reward_history = []
@@ -26,25 +40,45 @@ class MDP(ABC):
 
     @abstractmethod
     def get_action_space(self):
+        """
+        Return a list of the legal actions that can be taken by agents.
+        """
         pass
 
     @abstractmethod
     def _step(self, action):
+        """
+        Transition the MDP using the given action.
+        """
         pass
 
     @abstractmethod
     def _undo(self):
+        """
+        Undo the last action taken by the MDP.
+        """
         pass
 
     @abstractmethod
     def _reset(self):
+        """
+        Revert the MDP back to its initial state.
+        """
         pass
 
     @abstractmethod
     def is_terminal(self):
+        """
+        Return a boolean indicating if the MDP is in a terminal state.
+        """
         pass
 
     def step(self, action):
+        """
+        Transition the MDP by the given action, provided it is legal.
+
+        Also update the bookkeeping attributes and the display if it is set.
+        """
         if not self.is_legal_action(action):
             raise RuntimeError("Received illegal action: {}".format(action))
 
@@ -60,6 +94,9 @@ class MDP(ABC):
         return reward, terminal
 
     def undo(self, action):
+        """
+        Undo the last action taken by the MDP.
+        """
         self.timesteps -= 1
         self.total_reward -= self.reward_history.pop()
         self._undo(action)
@@ -68,6 +105,10 @@ class MDP(ABC):
             self.display.update_display(self, action)
 
     def reset(self):
+        """
+        Revert the bookkeeping attributes back to their initial state, as 
+        well as the display.
+        """
         self.timesteps = 0
         self.total_reward = 0
         self.reward_history = []
@@ -77,12 +118,21 @@ class MDP(ABC):
             self.display.reset_display(self)
 
     def is_legal_action(self, action):
+        """
+        Return a boolean indicating if the action is valid and legal.
+        """
         return not self.is_terminal() and action in self.action_space
 
     def action_space_sample(self):
+        """
+        Make a random choice from the MDP's action space.
+        """
         return choice(self.action_space)
 
     def copy(self):
+        """
+        Return a deepcopy of the MDP state where references are not shared.
+        """
         return deepcopy(self)
 
     def __eq__(self, other):
@@ -95,8 +145,8 @@ class MDP(ABC):
         Used by subclasses to copy over the game attributes to a new deepcopy 
         of the subclass.
 
-        Does not copy the display instance over, so that modifications to 
-        a copy do not update/change the original.
+        The display attribute is not copied, so that copies cannot modify the 
+        current game display.
         """
         new.timesteps = self.timesteps
         new.total_reward = self.total_reward

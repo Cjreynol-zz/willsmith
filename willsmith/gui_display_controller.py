@@ -8,7 +8,8 @@ class GUIDisplayController(DisplayController):
     """
     Abstract base class for Tkinter GUI-based display controllers.
 
-    Sub-classes are expected to provide functionality for widget management.
+    Sub-classes are expected to provide functionality for widget creation and 
+    management.
     """
 
     def __init__(self):

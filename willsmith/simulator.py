@@ -1,6 +1,9 @@
 """
-This simulator module contains the functions responsible for managing agents 
-while they play games and learn MDPs.  
+Contains the functionality to simulate agents playing games or learning MDPs.
+
+Manages the communication between the agent and game/MDP objects.  The 
+interface used by the simulation functions is found in the respective base 
+classes for Game, MDP, and their agent base classes.
 """
 
 
@@ -9,7 +12,7 @@ from logging import getLogger
 
 def run_games(game, agents, time_allowed, num_games):
     """
-    Play the agents through the given game.
+    Play the provided agents through the game num_games times.
     """
     if len(agents) != game.NUM_PLAYERS:
         raise RuntimeError("Incorrect number of agents for game type.")
@@ -22,7 +25,7 @@ def run_games(game, agents, time_allowed, num_games):
 
 def run_mdp(mdp, agent, num_trials):
     """
-    Run the agent through a number of trials on the given MDP.
+    Run the agent through num_trials number of trials of the given MDP.
     """
     for i in range(num_trials):
         getLogger(__name__).info("Trial {}/{}".format(i + 1, num_trials))
@@ -35,6 +38,9 @@ def run_mdp(mdp, agent, num_trials):
 
 def _run_game(game, agents, time_allowed):
     """
+    Reset the agents and game to their initial state, then progresses through 
+    each agent's turn prompting them for actions until a terminal state of 
+    the game is reached.
     """
     game.reset()
     for agent in agents:
@@ -63,6 +69,8 @@ def _advance_by_action(game, agents, action):
 
 def _run_trial(mdp, agent):
     """
+    Reset the MDP to its initial state, then continually prompt the agent for 
+    actions until the MDP reaches a terminal state.
     """
     mdp.reset()
     prev_state = None

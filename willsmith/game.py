@@ -11,21 +11,21 @@ class Game(ABC):
     """
     Abstract base class for games.
 
-    Subclasses are turn-based games where players take single alternating 
+    Subclasses are turn-based games where players alternate taking single 
     actions until a winner is decided.  
     
-    The interface enforced by this class is used by Agent instances to 
-    determine their next action and Simulator to control the game as they run 
-    agents through a match.
+    The interface enforced by this class is used by GameAgent instances to 
+    determine their next action, and by the simulator module to control the 
+    game as it runs agents through a match.
 
     The ACTION class attribute is expected to be a subclass of the Action 
     base class.
 
+    The DISPLAY class attribute is used by subclasses to register custom 
+    displays.
+
     The NUM_PLAYERS class attribute is required to set the number of agents 
     expected for the game.
-
-    The DISPLAY class attribute is required to set the display for the 
-    simulator to use.
     """
 
     ACTION = None
@@ -34,11 +34,10 @@ class Game(ABC):
 
     def __init__(self, use_display):
         """
-        Start the game with the first player and sets the number of agents 
-        for keeping this index within bounds.
+        Set the game to start with the first player.
 
-        Also runs checks to ensure the class attributes have been properly 
-        assigned by subclass.
+        Properly sets the display attribute based on the use_display argument, 
+        and also checks that the required class attributes are set.
         """
         self.num_agents = self.NUM_PLAYERS
         self.current_agent_id = 0
@@ -59,8 +58,10 @@ class Game(ABC):
 
     def get_legal_actions(self):
         """
-        Return a list of the legal actions remaining in the game, unless the 
-        game is in a terminal state.  Then return an empty list.
+        Return a list of the legal actions available to the current player.  
+
+        In the case where the game is in a terminal state, this is an empty 
+        list regardless of any other game state.
         """
         results = []
         if not self.is_terminal():
@@ -69,8 +70,9 @@ class Game(ABC):
 
     def take_action(self, action):
         """
-        Ensure that only legal actions are applied to the game, and update 
-        the current_agent_id to the next agent.
+        Apply the action, which must be legal, to the game state.
+
+        Also update the current player id and the display if it is set.
         """
         if not self.is_legal_action(action):
             raise RuntimeError("Received illegal action: {}".format(action))
@@ -81,6 +83,10 @@ class Game(ABC):
             self.display.update_display(self, action)
 
     def reset(self):
+        """
+        Revert the bookkeeping attributes back to their initial state, as 
+        well as the display.
+        """
         self.current_agent_id = 0
         self._reset()
 
@@ -113,9 +119,6 @@ class Game(ABC):
     def _take_action(self, action):
         """
         Progress the internal game state by the given action.
-
-        Overriden version of this method should be decorated with 
-        progress_game to ensure the current_agent_id attribute remains valid.
         """
         pass
 
@@ -137,19 +140,14 @@ class Game(ABC):
 
     def generate_random_action(self):
         """
-        Make a random choice of the available legal actions.  
-
-        Used by random agents or for game playouts by other agents.
+        Make a random choice of the available legal actions for the current 
+        player.
         """
-        random_action = choice(self.get_legal_actions())
-        return random_action
+        return choice(self.get_legal_actions())
 
     def copy(self):
         """
-        Return a copy of the state.
-
-        Used by the simulator to allow agents to run simulations without 
-        corrupting the actual state of the game.
+        Return a deepcopy of the game state where references are not shared.
         """
         return deepcopy(self)
 
@@ -157,7 +155,8 @@ class Game(ABC):
         """
         Increment the agent id of the current player, indicating a new turn.
 
-        This method forces the id to stay in legal range [0, num_agents)
+        This method enforces the id stay within the legal range of 
+        [0, num_agents).
         """
         self.current_agent_id += 1
         if self.current_agent_id == self.num_agents:
@@ -171,8 +170,8 @@ class Game(ABC):
         Used by subclasses to copy over the game attributes to a new deepcopy 
         of the subclass.
 
-        Does not copy the display instance over, so that modifications to 
-        a copy do not update/change the original.
+        The display attribute is not copied, so that copies cannot modify the 
+        current game display.
         """
         new.num_agents = self.num_agents
         new.current_agent_id = self.current_agent_id

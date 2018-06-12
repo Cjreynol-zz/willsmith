@@ -17,7 +17,7 @@ Work is being done with [John Bourassa](https://github.com/johink).
 
 ## To Run
 
-Tested on Python version 3.6, but should work on any recent version of 
+Tested on Python version 3.6, but it should work on any recent version of 
 Python 3.  
 
 Run `python main.py -h`, `python main.py game -h`, and 
